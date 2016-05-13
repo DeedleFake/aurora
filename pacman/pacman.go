@@ -17,7 +17,7 @@ func init() {
 	pacman = p
 }
 
-func Run(args ...string) *exec.Cmd {
+func Pacman(args ...string) *exec.Cmd {
 	return &exec.Cmd{
 		Path:   pacman,
 		Args:   append([]string{pacman}, args...),

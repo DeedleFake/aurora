@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-func TestRun(t *testing.T) {
-	err := pacman.Run("-Qi", "pacman")
+func TestPacman(t *testing.T) {
+	err := pacman.Pacman("-Qi", "pacman").Run()
 	if err != nil {
 		t.Error(err)
 	}
