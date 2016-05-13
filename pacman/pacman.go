@@ -17,14 +17,12 @@ func init() {
 	pacman = p
 }
 
-func Run(args ...string) error {
-	cmd := &exec.Cmd{
+func Run(args ...string) *exec.Cmd {
+	return &exec.Cmd{
 		Path:   pacman,
 		Args:   append([]string{pacman}, args...),
 		Stdin:  os.Stdin,
 		Stdout: os.Stdout,
 		Stderr: os.Stderr,
 	}
-
-	return cmd.Run()
 }
