@@ -2,7 +2,6 @@ package flag
 
 import (
 	"os"
-	"strconv"
 	"strings"
 )
 
@@ -10,51 +9,52 @@ var (
 	Args = os.Args[1:]
 )
 
-type Type int
-
-const (
-	None = iota
-	Single
-	Double
-)
-
-func (t Type) String() string {
-	switch t {
-	case None:
-		return "None"
-	case Single:
-		return "Single"
-	case Double:
-		return "Double"
-	}
-
-	panic("Unknown value: " + strconv.FormatInt(int64(t), 10))
+type Flag interface {
+	String() string
 }
 
-func Walk(f func(val string, t Type) bool) {
+type Arg string
+
+func (a Arg) String() string {
+	return string(a)
+}
+
+type Single rune
+
+func (s Single) String() string {
+	return "-" + string(s)
+}
+
+type Double string
+
+func (d Double) String() string {
+	return "--" + string(d)
+}
+
+func Walk(f func(Flag) bool) {
 	for _, arg := range Args {
 		switch {
 		case strings.HasPrefix(arg, "--"):
-			if !f(arg[2:], Double) {
+			if !f(Double(arg[2:])) {
 				return
 			}
 
 		case strings.HasPrefix(arg, "-"):
 			if arg == "-" {
-				if !f(arg, None) {
+				if !f(Arg(arg)) {
 					return
 				}
 				continue
 			}
 
 			for _, c := range arg[1:] {
-				if !f(string(c), Single) {
+				if !f(Single(c)) {
 					return
 				}
 			}
 
 		default:
-			if !f(arg, None) {
+			if !f(Arg(arg)) {
 				return
 			}
 		}
