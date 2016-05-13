@@ -62,7 +62,7 @@ func (m *pacmanMode) Main() {
 		case *exec.ExitError:
 			os.Exit(err.Sys().(syscall.WaitStatus).ExitStatus())
 		default:
-			fmt.Printf("aurora: error running pacman: %v", err)
+			fmt.Printf("aurora: error running pacman: %v\n", err)
 			os.Exit(1)
 		}
 	}
