@@ -5,9 +5,7 @@ import (
 	"strings"
 )
 
-var (
-	Args = os.Args[1:]
-)
+var Args = os.Args[1:]
 
 type Flag interface {
 	String() string
