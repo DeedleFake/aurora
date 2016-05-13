@@ -16,7 +16,7 @@ func init() {
 	sudoPath = p
 }
 
-func sudo(cmd *exec.Cmd) *exec.Cmd {
+func Sudo(cmd *exec.Cmd) *exec.Cmd {
 	cmd.Path = sudoPath
 	cmd.Args = append([]string{sudoPath}, cmd.Args...)
 

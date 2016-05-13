@@ -15,7 +15,7 @@ var (
 )
 
 func (m pacmanMode) Main() {
-	err := pacman.Run(flag.Args...)
+	err := Sudo(pacman.Pacman(flag.Args...)).Run()
 	if err != nil {
 		switch err := err.(type) {
 		case *exec.ExitError:
